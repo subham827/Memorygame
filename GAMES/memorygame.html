@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style1.css">
+    <!-- <link src="app1.js" chardet="UTF-8"> -->
+</head>
+<body>
+    <h3 class="h3">Score: <span id="result"></span></h3>
+    <div class="grid"></div><script>
+        console.log("hello");
+        document.addEventListener('DOMContentLoaded',()=>{
+    console.log("hello");
+    const cardArray = [{
+        name: 'fries',
+        img : 'images/fries.jpg'
+    },{
+        name: 'fries',
+        img : 'images/fries.jpg'
+    },{
+        name: 'burger',
+        img : 'images/burger.jpg'
+    },{ name: 'burger',
+    img : 'images/burger.jpg'},{
+        name: 'hotdog',
+        img : 'images/hotdog.jpg'
+    },{
+        name: 'hotdog',
+        img : 'images/hotdog.jpg'
+    },{
+        name: 'pizza',
+        img : 'images/pizza.jpg'
+    },{
+        name: 'pizza',
+        img : 'images/pizza.jpg'
+    },{
+        name : 'milkshake',
+        img : 'images/milkshake.jpg'
+    },{
+        name : 'milkshake',
+        img :'images/milkshake.jpg'
+    },{
+        name: 'ice',
+        img : 'images/ice.jpg'
+    },{
+        name: 'ice',
+        img : 'images/ice.jpg'
+    }]
+    cardArray.sort(()=> 0.5 - Math.random())
+    
+
+console.log(cardArray.length);
+const grid = document.querySelector('.grid');
+const resd = document.querySelector('#result');
+var cardschosen = [];
+var cardschosenId = [];
+var cardswon=[];
+const h3 = document.getElementsByClassName('h3')
+function createBoard() {
+    for(var i=0; i < cardArray.length;i++){
+        console.log(cardArray.length);
+        console.log("hello");
+        var card = document.createElement('img');
+        card.setAttribute('src','images/flip.jpg')
+        card.setAttribute('data-id',i)
+        card.addEventListener('click',flipcard)
+
+        grid.appendChild(card)
+    }
+}function checkformatch(){
+    var cards = document.querySelectorAll('img');
+    const op1 = cardschosenId[0]
+    const op2 = cardschosenId[1]
+    if(cardschosen[0]==cardschosen[1]){
+        alert('Match!')
+        cards[op1].setAttribute('src', 'images/white.jpg');
+        cards[op2].setAttribute('src','images/white.jpg');
+        cardswon.push(cardschosen)
+    }else{
+        cards[op1].setAttribute('src', 'images/flip.jpg');
+        cards[op2].setAttribute('src','images/flip.jpg');
+        // alert('try again')
+    }
+    cardschosen=[];
+    cardschosenId=[];
+    resd.textContent = cardswon.length
+    if(cardswon.length=== cardArray.length/2){
+        resd.textContent = 'Congrats , you have found them all'
+        // h3.style.display = 'none'
+    }
+}
+
+
+
+
+function flipcard(){
+    var cardId = this.getAttribute('data-id');
+    cardschosen.push(cardArray[cardId].name)
+    cardschosenId.push(cardId)
+this.setAttribute('src', cardArray[cardId].img)
+if(cardschosen.length==2){
+    setTimeout(checkformatch,500)
+}
+
+
+}
+createBoard();
+        })
+    </script>
+</body>
+</html>
